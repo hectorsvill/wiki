@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hectorsvill blog</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on hectorsvill blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Aug 2024 21:34:17 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gohugo Commands</title>
+      <link>http://localhost:1313/docs/gohugo-commands/</link>
+      <pubDate>Sun, 18 Aug 2024 21:34:17 -0400</pubDate>
+      <guid>http://localhost:1313/docs/gohugo-commands/</guid>
+      <description>Basic Hugo Commands Create a New Site:&#xA;hugo new site &amp;lt;site-name&amp;gt; This initializes a new Hugo site in a directory named &amp;lt;site-name&amp;gt;.&#xA;Create a New Content File:&#xA;hugo new &amp;lt;section&amp;gt;/filename.md Creates a new content file in the specified section. For example, hugo new posts/my-first-post.md creates a new blog post in the posts section.&#xA;Start the Development Server:&#xA;hugo server Runs the Hugo development server, which watches your files and rebuilds the site automatically when changes are detected.</description>
+    </item>
+    <item>
+      <title>Directory-Tree-Generator</title>
+      <link>http://localhost:1313/projects/directory-tree-generator-in-go/</link>
+      <pubDate>Sun, 18 Aug 2024 21:18:19 -0400</pubDate>
+      <guid>http://localhost:1313/projects/directory-tree-generator-in-go/</guid>
+      <description>github Repository: Directory-Tree-Generator&#xA;This Go program generates a directory tree in text or JSON format.&#xA;Command-Line Options -d: Specify the starting directory for the directory tree. The default value is . (the current directory). -f: Specify the output format for the directory tree. The available options are txt (text format) and json (JSON format). The default value is txt. -p: Print the directory tree to the console instead of writing it to a file.</description>
+    </item>
+    <item>
+      <title>Building a Directory Tree Generator in Go</title>
+      <link>http://localhost:1313/posts/building-a-directory-tree-generator-in-go/</link>
+      <pubDate>Sun, 18 Aug 2024 21:04:21 -0400</pubDate>
+      <guid>http://localhost:1313/posts/building-a-directory-tree-generator-in-go/</guid>
+      <description>When working with complex file structures, visualizing the layout of directories and files can be incredibly helpful. Whether you&amp;rsquo;re onboarding new developers, documenting a project, or simply trying to get a better grasp of a large codebase, having a clear directory tree can save time and prevent confusion. In this blog post, we’ll explore how to build a directory tree generator in Go that can output the structure in both text and JSON formats.</description>
+    </item>
+    <item>
+      <title>When and Why to Use the Directory-Tree-Generator</title>
+      <link>http://localhost:1313/posts/when-and-why-to-use-the-directory-tree-generator/</link>
+      <pubDate>Sun, 18 Aug 2024 20:47:33 -0400</pubDate>
+      <guid>http://localhost:1313/posts/when-and-why-to-use-the-directory-tree-generator/</guid>
+      <description>Imagine you&amp;rsquo;re working on a large software project that&amp;rsquo;s been in development for months. The codebase has grown significantly, with numerous directories and hundreds of files spread across the project. You&amp;rsquo;re tasked with documenting the project&amp;rsquo;s structure to help onboard new developers. Manually mapping out the entire directory tree would be time-consuming and error-prone. Enter the Directory-Tree-Generator, a simple yet powerful tool that can save you hours of work.&#xA;What is the Directory-Tree-Generator?</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Sun, 18 Aug 2024 17:33:59 -0400</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Troubleshooting CH340 USB-to-Serial Converter Issues on Ubuntu</title>
+      <link>http://localhost:1313/posts/troubleshooting-ch340-usb-to-serial-converter-issues-on-ubuntu/</link>
+      <pubDate>Sun, 18 Aug 2024 11:18:17 -0400</pubDate>
+      <guid>http://localhost:1313/posts/troubleshooting-ch340-usb-to-serial-converter-issues-on-ubuntu/</guid>
+      <description>The CH340 USB-to-serial converter, widely used in Arduino-compatible boards and other electronic devices, is known for its reliability and affordability. However, Ubuntu users may occasionally encounter issues with the device repeatedly disconnecting or failing to connect. This guide walks you through troubleshooting and resolving these issues.&#xA;Understanding the Problem When connecting a device that uses the CH340 USB-to-serial converter, you might notice repeated connection and disconnection messages in the system logs.</description>
+    </item>
+    <item>
+      <title>Python Parallel Functions</title>
+      <link>http://localhost:1313/posts/python-parallel-function/</link>
+      <pubDate>Sun, 18 Aug 2024 11:11:59 -0400</pubDate>
+      <guid>http://localhost:1313/posts/python-parallel-function/</guid>
+      <description>Leveraging Python for Parallel Function Execution Python is known for its simplicity and power, but when it comes to performance, particularly in running multiple tasks simultaneously, it can sometimes be tricky due to its Global Interpreter Lock (GIL). However, Python still provides robust tools for parallelism, especially for I/O-bound or CPU-bound tasks. Here, we explore some common methods to run functions in parallel using Python.&#xA;1. Threading The threading module is useful for I/O-bound tasks, like reading files or making network requests, where the waiting time is more than the processing time.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on hectorsvill blog</title>
+    <link>http://localhost:1313/tags/hugo/</link>
+    <description>Recent content in Hugo on hectorsvill blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Aug 2024 21:34:17 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gohugo Commands</title>
+      <link>http://localhost:1313/docs/gohugo-commands/</link>
+      <pubDate>Sun, 18 Aug 2024 21:34:17 -0400</pubDate>
+      <guid>http://localhost:1313/docs/gohugo-commands/</guid>
+      <description>Basic Hugo Commands Create a New Site:&#xA;hugo new site &amp;lt;site-name&amp;gt; This initializes a new Hugo site in a directory named &amp;lt;site-name&amp;gt;.&#xA;Create a New Content File:&#xA;hugo new &amp;lt;section&amp;gt;/filename.md Creates a new content file in the specified section. For example, hugo new posts/my-first-post.md creates a new blog post in the posts section.&#xA;Start the Development Server:&#xA;hugo server Runs the Hugo development server, which watches your files and rebuilds the site automatically when changes are detected.</description>
+    </item>
+  </channel>
+</rss>

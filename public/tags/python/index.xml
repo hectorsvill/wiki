@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on hectorsvill blog</title>
+    <link>http://localhost:1313/tags/python/</link>
+    <description>Recent content in Python on hectorsvill blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Aug 2024 11:11:59 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python Parallel Functions</title>
+      <link>http://localhost:1313/posts/python-parallel-function/</link>
+      <pubDate>Sun, 18 Aug 2024 11:11:59 -0400</pubDate>
+      <guid>http://localhost:1313/posts/python-parallel-function/</guid>
+      <description>Leveraging Python for Parallel Function Execution Python is known for its simplicity and power, but when it comes to performance, particularly in running multiple tasks simultaneously, it can sometimes be tricky due to its Global Interpreter Lock (GIL). However, Python still provides robust tools for parallelism, especially for I/O-bound or CPU-bound tasks. Here, we explore some common methods to run functions in parallel using Python.&#xA;1. Threading The threading module is useful for I/O-bound tasks, like reading files or making network requests, where the waiting time is more than the processing time.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on hectorsvill blog</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on hectorsvill blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Aug 2024 21:04:21 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building a Directory Tree Generator in Go</title>
+      <link>http://localhost:1313/posts/building-a-directory-tree-generator-in-go/</link>
+      <pubDate>Sun, 18 Aug 2024 21:04:21 -0400</pubDate>
+      <guid>http://localhost:1313/posts/building-a-directory-tree-generator-in-go/</guid>
+      <description>When working with complex file structures, visualizing the layout of directories and files can be incredibly helpful. Whether you&amp;rsquo;re onboarding new developers, documenting a project, or simply trying to get a better grasp of a large codebase, having a clear directory tree can save time and prevent confusion. In this blog post, we’ll explore how to build a directory tree generator in Go that can output the structure in both text and JSON formats.</description>
+    </item>
+    <item>
+      <title>When and Why to Use the Directory-Tree-Generator</title>
+      <link>http://localhost:1313/posts/when-and-why-to-use-the-directory-tree-generator/</link>
+      <pubDate>Sun, 18 Aug 2024 20:47:33 -0400</pubDate>
+      <guid>http://localhost:1313/posts/when-and-why-to-use-the-directory-tree-generator/</guid>
+      <description>Imagine you&amp;rsquo;re working on a large software project that&amp;rsquo;s been in development for months. The codebase has grown significantly, with numerous directories and hundreds of files spread across the project. You&amp;rsquo;re tasked with documenting the project&amp;rsquo;s structure to help onboard new developers. Manually mapping out the entire directory tree would be time-consuming and error-prone. Enter the Directory-Tree-Generator, a simple yet powerful tool that can save you hours of work.&#xA;What is the Directory-Tree-Generator?</description>
+    </item>
+    <item>
+      <title>Troubleshooting CH340 USB-to-Serial Converter Issues on Ubuntu</title>
+      <link>http://localhost:1313/posts/troubleshooting-ch340-usb-to-serial-converter-issues-on-ubuntu/</link>
+      <pubDate>Sun, 18 Aug 2024 11:18:17 -0400</pubDate>
+      <guid>http://localhost:1313/posts/troubleshooting-ch340-usb-to-serial-converter-issues-on-ubuntu/</guid>
+      <description>The CH340 USB-to-serial converter, widely used in Arduino-compatible boards and other electronic devices, is known for its reliability and affordability. However, Ubuntu users may occasionally encounter issues with the device repeatedly disconnecting or failing to connect. This guide walks you through troubleshooting and resolving these issues.&#xA;Understanding the Problem When connecting a device that uses the CH340 USB-to-serial converter, you might notice repeated connection and disconnection messages in the system logs.</description>
+    </item>
+    <item>
+      <title>Python Parallel Functions</title>
+      <link>http://localhost:1313/posts/python-parallel-function/</link>
+      <pubDate>Sun, 18 Aug 2024 11:11:59 -0400</pubDate>
+      <guid>http://localhost:1313/posts/python-parallel-function/</guid>
+      <description>Leveraging Python for Parallel Function Execution Python is known for its simplicity and power, but when it comes to performance, particularly in running multiple tasks simultaneously, it can sometimes be tricky due to its Global Interpreter Lock (GIL). However, Python still provides robust tools for parallelism, especially for I/O-bound or CPU-bound tasks. Here, we explore some common methods to run functions in parallel using Python.&#xA;1. Threading The threading module is useful for I/O-bound tasks, like reading files or making network requests, where the waiting time is more than the processing time.</description>
+    </item>
+  </channel>
+</rss>

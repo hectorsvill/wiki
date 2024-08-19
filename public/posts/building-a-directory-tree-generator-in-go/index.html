@@ -1,0 +1,482 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #fbfbfb"
+  lang="en-us"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Building a Directory Tree Generator in Go - hectorsvill blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="When working with complex file structures, visualizing the layout of directories and files can be incredibly helpful. Whether you&rsquo;re onboarding new developers, documenting a project, or simply trying to get a better grasp of a large codebase, having a clear directory tree can save time and prevent confusion. In this blog post, we’ll explore how to build a directory tree generator in Go that can output the structure in both text and JSON formats." />
+  <meta name="author" content="@hectorsvill" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="http://localhost:1313/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/theme.svg" />
+
+  
+  
+  
+  
+  <link rel="preload" as="image" href="https://2.gravatar.com/avatar/f7bc3aba3d8b4fd604224510e9df9195eabddd1258028c781a9c0454b3d517b5?size=512" />
+  
+  
+
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/github.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/linkedin.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/rss.svg" />
+  
+  
+
+  
+  
+  <script
+    defer
+    src="http://localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+  
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  
+  
+  
+
+  
+  <link
+    rel="icon"
+    href="http://localhost:1313/favicon.ico"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="http://localhost:1313/apple-touch-icon.png"
+  />
+
+  
+  <meta name="generator" content="Hugo 0.133.0">
+
+  
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-[--w] px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a class="-translate-y-[1px] text-2xl font-medium" href="http://localhost:1313/"
+      >hectorsvill blog</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#fbfbfb'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-10">
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/docs/"
+        >Docs</a
+      >
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/projects/"
+        >Projects</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-14 lg:mt-0 lg:items-center"
+    >
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/hectorsvill"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/hector-steven-villasano"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="http://localhost:1313/index.xml"
+        target="_blank"
+        rel="alternate"
+      >
+        rss
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-[--w] px-8 pb-16 pt-14 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-14">
+    <h1 class="!my-0 pb-2.5">Building a Directory Tree Generator in Go</h1>
+
+    
+    <div class="text-xs antialiased opacity-60">
+      
+      <time>Aug 18, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>When working with complex file structures, visualizing the layout of directories and files can be incredibly helpful. Whether you&rsquo;re onboarding new developers, documenting a project, or simply trying to get a better grasp of a large codebase, having a clear directory tree can save time and prevent confusion. In this blog post, we’ll explore how to build a directory tree generator in Go that can output the structure in both text and JSON formats.</p>
+<h2 id="overview-of-the-directory-tree-generator">Overview of the Directory Tree Generator</h2>
+<p>This Go program generates a directory tree starting from a specified directory and outputs it in either a text or JSON format. The program is controlled through command-line flags, allowing you to specify the starting directory, output format, and whether to print the tree to the console.</p>
+<h3 id="command-line-options">Command-Line Options</h3>
+<p>The program accepts the following command-line options:</p>
+<ul>
+<li><code>-d</code>: Specifies the starting directory for the directory tree. The default is the current directory (<code>.</code>).</li>
+<li><code>-f</code>: Specifies the output format. You can choose between <code>txt</code> (text format) and <code>json</code> (JSON format). The default is <code>txt</code>.</li>
+<li><code>-p</code>: If set, the directory tree is printed to the console instead of being written to a file.</li>
+</ul>
+<h2 id="breaking-down-the-code">Breaking Down the Code</h2>
+<p>Let&rsquo;s dive into the code to understand how the program works.</p>
+<h3 id="1-flag-initialization">1. Flag Initialization</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">startDir</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">format</span>   <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">print</span>    <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">startDir</span>, <span style="color:#e6db74">&#34;d&#34;</span>, <span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;starting directory&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">format</span>, <span style="color:#e6db74">&#34;f&#34;</span>, <span style="color:#e6db74">&#34;txt&#34;</span>, <span style="color:#e6db74">&#34;output format (txt or json)&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">BoolVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">print</span>, <span style="color:#e6db74">&#34;p&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#e6db74">&#34;print to console&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Usage</span> = <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;Usage: %s [options]\n\nOptions:\n&#34;</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">PrintDefaults</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Here, we define three variables: <code>startDir</code>, <code>format</code>, and <code>print</code>, which are populated using the <code>flag</code> package. These flags allow the user to customize the program&rsquo;s behavior from the command line.</p>
+<h3 id="2-directory-tree-structure">2. Directory Tree Structure</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DirEntry</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Name</span>    <span style="color:#66d9ef">string</span>      <span style="color:#e6db74">`json:&#34;name&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">IsDir</span>   <span style="color:#66d9ef">bool</span>        <span style="color:#e6db74">`json:&#34;is_dir&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Entries</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">DirEntry</span> <span style="color:#e6db74">`json:&#34;entries,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>DirEntry</code> struct represents a single file or directory. The <code>Entries</code> field is a slice of pointers to other <code>DirEntry</code> objects, allowing the struct to represent a tree structure recursively. The JSON tags are used to control the JSON output format.</p>
+<h3 id="3-main-function">3. Main Function</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">print</span> <span style="color:#f92672">||</span> (<span style="color:#a6e22e">format</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">startDir</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;.&#34;</span> <span style="color:#f92672">&amp;&amp;</span> !<span style="color:#a6e22e">print</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">walkDir</span>(<span style="color:#a6e22e">startDir</span>, <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>)
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">format</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;json&#34;</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">root</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DirEntry</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#a6e22e">startDir</span>, <span style="color:#a6e22e">IsDir</span>: <span style="color:#66d9ef">true</span>}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">walkDirJSON</span>(<span style="color:#a6e22e">startDir</span>, <span style="color:#a6e22e">root</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#e6db74">&#34;dir_tree.json&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">enc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">f</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">enc</span>.<span style="color:#a6e22e">SetIndent</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;  &#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">enc</span>.<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">root</span>)
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#e6db74">&#34;dir_tree.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">walkDir</span>(<span style="color:#a6e22e">startDir</span>, <span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">f</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>main</code> function is the entry point of the program. Depending on the flags, it decides whether to print the directory tree to the console or write it to a file in either text or JSON format.</p>
+<h3 id="4-walking-the-directory-tree">4. Walking the Directory Tree</h3>
+<p>The directory tree is generated using two different functions: <code>walkDir</code> for text output and <code>walkDirJSON</code> for JSON output.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">walkDirJSON</span>(<span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">parent</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">DirEntry</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">files</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">ReadDir</span>(<span style="color:#a6e22e">path</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">file</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">files</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">entry</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DirEntry</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Name</span>(), <span style="color:#a6e22e">IsDir</span>: <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">IsDir</span>()}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">parent</span>.<span style="color:#a6e22e">Entries</span> = append(<span style="color:#a6e22e">parent</span>.<span style="color:#a6e22e">Entries</span>, <span style="color:#a6e22e">entry</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">IsDir</span>() {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">walkDirJSON</span>(<span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Name</span>()), <span style="color:#a6e22e">entry</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>walkDirJSON</code> function recursively traverses the directory structure, creating <code>DirEntry</code> objects for each file and directory, and appending them to their parent directory’s <code>Entries</code> slice.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">walkDir</span>(<span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">level</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">prefix</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">w</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">files</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">ReadDir</span>(<span style="color:#a6e22e">path</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">file</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">files</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> len(<span style="color:#a6e22e">files</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;%s└── %s\n&#34;</span>, <span style="color:#a6e22e">prefix</span>, <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Name</span>())
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">IsDir</span>() {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">walkDir</span>(<span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Name</span>()), <span style="color:#a6e22e">level</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">prefix</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;    &#34;</span>, <span style="color:#a6e22e">w</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;%s├── %s\n&#34;</span>, <span style="color:#a6e22e">prefix</span>, <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Name</span>())
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">IsDir</span>() {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">walkDir</span>(<span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Name</span>()), <span style="color:#a6e22e">level</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">prefix</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;│   &#34;</span>, <span style="color:#a6e22e">w</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>walkDir</code> function similarly traverses the directory structure, but instead of building a JSON object, it writes a formatted text representation of the tree to the specified <code>io.Writer</code>.</p>
+<h3 id="5-generating-the-output">5. Generating the Output</h3>
+<p>The program writes the directory tree to a file or prints it to the console, depending on the flags set by the user. For text output, it uses a simple, visually clear tree format. For JSON output, it creates a structured representation of the directory that can be easily parsed by other tools.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This Go program provides a flexible and efficient way to generate a directory tree. By supporting both text and JSON output formats, it caters to a wide range of use cases, from simple visualization to integration with other software. Whether you&rsquo;re documenting your codebase or just trying to get a handle on a sprawling project, this directory tree generator is a valuable tool to have in your toolkit.</p>
+<p>github Repository: <a href="https://github.com/hectorsvill/Directory-Tree-Generator/tree/main">Directory-Tree-Generator</a></p>
+</section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1 no-underline hover:bg-black/[6%] dark:bg-white/[8%] dark:hover:bg-white/[12%]"
+      href="http://localhost:1313/tags/go"
+      >go</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  
+  <nav
+    class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg !leading-[1.2] *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"
+  >
+    
+    
+    <a class="ml-auto justify-end pl-3" href="http://localhost:1313/posts/when-and-why-to-use-the-directory-tree-generator/"
+      ><span>When and Why to Use the Directory-Tree-Generator</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="mx-auto flex h-[4.5rem] max-w-[--w] items-center px-8 text-xs uppercase tracking-wider opacity-60"
+>
+  <div class="mr-auto">
+  
+    &copy; 2024
+    <a class="link" href="http://localhost:1313/">hectorsvill blog</a>
+  
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >powered by hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >hugo-paper</a
+  >
+</footer>
+
+  </body>
+</html>

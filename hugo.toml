@@ -1,0 +1,47 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'hectorsvill blog'
+theme= 'hugo-paper'
+
+
+
+
+[params]
+  # color style
+  color = 'gray'                           # linen, wheat, gray, light
+
+  # header social icons
+  github = 'hectorsvill'                 # github.com/YOUR_GITHUB_ID
+  linkedin = 'hector-steven-villasano'             # /YOUR_LINKEDIN_ID
+  rss = true
+
+  avatar = 'https://2.gravatar.com/avatar/f7bc3aba3d8b4fd604224510e9df9195eabddd1258028c781a9c0454b3d517b5?size=512'                 # gravatar email or image url
+  name = '@hectorsvill'
+  bio = "Hi, I'm Hector! I'm passionate about programming, working on electronics, and building and flying drones."
+
+   # misc
+  disableHLJS = false                       # disable highlight.js
+  disablePostNavigation = false              # disable post navigation
+  monoDarkIcon = true                       # show monochrome dark mode icon
+#   gravatarCdn = 'GRAVATAR_CDN_LINK'         # e.g. 'https://cdn.v2ex.com/gravatar/'
+  math = true                               # enable KaTeX math typesetting globally
+  localKatex = false                        # use local KaTeX js/css instead of CDN
+#   graphCommentId = "YOUR_GRAPH_COMMENT_ID"  # use graph comment (disqus alternative)
+  favicon = "favicon.ico"                   # customize the default favicon
+  appleTouchIcon = "apple-touch-icon.png"   # customize the default Apple touch icon
+
+
+
+
+[menu]
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 0
+
+  [[menu.main]]
+    identifier = "Docs"
+    name = "Docs"
+    url = "/docs/"
+    weight = 1

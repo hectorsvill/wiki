@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on hectorsvill blog</title>
+    <link>http://localhost:1313/projects/</link>
+    <description>Recent content in Projects on hectorsvill blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Aug 2024 21:18:19 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Directory-Tree-Generator</title>
+      <link>http://localhost:1313/projects/directory-tree-generator-in-go/</link>
+      <pubDate>Sun, 18 Aug 2024 21:18:19 -0400</pubDate>
+      <guid>http://localhost:1313/projects/directory-tree-generator-in-go/</guid>
+      <description>github Repository: Directory-Tree-Generator&#xA;This Go program generates a directory tree in text or JSON format.&#xA;Command-Line Options -d: Specify the starting directory for the directory tree. The default value is . (the current directory). -f: Specify the output format for the directory tree. The available options are txt (text format) and json (JSON format). The default value is txt. -p: Print the directory tree to the console instead of writing it to a file.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,466 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #fbfbfb"
+  lang="en-us"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Directory-Tree-Generator - hectorsvill blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="github Repository: Directory-Tree-Generator
+This Go program generates a directory tree in text or JSON format.
+Command-Line Options -d: Specify the starting directory for the directory tree. The default value is . (the current directory). -f: Specify the output format for the directory tree. The available options are txt (text format) and json (JSON format). The default value is txt. -p: Print the directory tree to the console instead of writing it to a file." />
+  <meta name="author" content="@hectorsvill" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="http://localhost:1313/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/theme.svg" />
+
+  
+  
+  
+  
+  <link rel="preload" as="image" href="https://2.gravatar.com/avatar/f7bc3aba3d8b4fd604224510e9df9195eabddd1258028c781a9c0454b3d517b5?size=512" />
+  
+  
+
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/github.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/linkedin.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/rss.svg" />
+  
+  
+
+  
+  
+  <script
+    defer
+    src="http://localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+  
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  
+  
+  
+
+  
+  <link
+    rel="icon"
+    href="http://localhost:1313/favicon.ico"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="http://localhost:1313/apple-touch-icon.png"
+  />
+
+  
+  <meta name="generator" content="Hugo 0.133.0">
+
+  
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-[--w] px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a class="-translate-y-[1px] text-2xl font-medium" href="http://localhost:1313/"
+      >hectorsvill blog</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#fbfbfb'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-10">
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/docs/"
+        >Docs</a
+      >
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/projects/"
+        >Projects</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-14 lg:mt-0 lg:items-center"
+    >
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/hectorsvill"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/hector-steven-villasano"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="http://localhost:1313/index.xml"
+        target="_blank"
+        rel="alternate"
+      >
+        rss
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-[--w] px-8 pb-16 pt-14 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-14">
+    <h1 class="!my-0 pb-2.5">Directory-Tree-Generator</h1>
+
+    
+    <div class="text-xs antialiased opacity-60">
+      
+      <time>Aug 18, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p><em>github Repository: <a href="https://github.com/hectorsvill/Directory-Tree-Generator">Directory-Tree-Generator</a></em></p>
+<p>This Go program generates a directory tree in text or JSON format.</p>
+<h2 id="command-line-options">Command-Line Options</h2>
+<ul>
+<li><code>-d</code>: Specify the starting directory for the directory tree. The default value is <code>.</code> (the current directory).</li>
+<li><code>-f</code>: Specify the output format for the directory tree. The available options are <code>txt</code> (text format) and <code>json</code> (JSON format). The default value is <code>txt</code>.</li>
+<li><code>-p</code>: Print the directory tree to the console instead of writing it to a file. The default value is <code>false</code>.</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>To run the program and generate a directory tree in text format, use the following command:</p>
+<pre tabindex="0"><code>./dir_tree
+</code></pre><p>This will create a file named <code>dir_tree.txt</code> in the current directory containing the directory tree.</p>
+<p>Here&rsquo;s an example of what the directory tree might look like in text format:</p>
+<pre tabindex="0"><code>.
+├── file1.txt
+├── file2.txt
+└── dir1
+    ├── file3.txt
+    └── dir2
+        └── file4.txt
+</code></pre><p>To generate a directory tree in JSON format, use the <code>-f</code> option:</p>
+<pre tabindex="0"><code>./dir_tree -f json
+</code></pre><p>This will create a file named <code>dir_tree.json</code> in the current directory containing the directory tree.</p>
+<p>Here&rsquo;s an example of what the directory tree might look like in JSON format:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;.&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;is_dir&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;entries&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;file1.txt&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;is_dir&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;file2.txt&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;is_dir&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;dir1&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;is_dir&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;entries&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;file3.txt&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;is_dir&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;dir2&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;is_dir&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;entries&#34;</span>: [
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;file4.txt&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;is_dir&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          ]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>To print the directory tree to the console instead of writing it to a file, use the <code>-p</code> option:</p>
+<pre tabindex="0"><code>./dir_tree -p
+</code></pre><p>This will print the directory tree to the console in text format.</p>
+<p>To specify a different starting directory for the directory tree, use the <code>-d</code> option:</p>
+<pre tabindex="0"><code>./dir_tree -d /path/to/directory
+</code></pre><p>This will generate a directory tree starting from the specified directory.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="example-1-generate-a-directory-tree-for-the-current-directory-in-text-format">Example 1: Generate a directory tree for the current directory in text format</h3>
+<p>To generate a directory tree for the current directory and output it in text format, you would run the following command:</p>
+<pre tabindex="0"><code>./dir_tree
+</code></pre><p>This would create a file named <code>dir_tree.txt</code> in the current directory containing the directory tree in text format.</p>
+<h3 id="example-2-generate-a-directory-tree-for-a-specified-directory-in-text-format">Example 2: Generate a directory tree for a specified directory in text format</h3>
+<p>To generate a directory tree for the <code>/home/user/documents</code> directory and output it in text format, you would run the following command:</p>
+<pre tabindex="0"><code>./dir_tree -d /home/user/documents
+</code></pre><p>This would create a file named <code>dir_tree.txt</code> in the current directory containing the directory tree for the <code>/home/user/documents</code> directory in text format.</p>
+<h3 id="example-3-generate-a-directory-tree-for-a-specified-directory-in-json-format">Example 3: Generate a directory tree for a specified directory in JSON format</h3>
+<p>To generate a directory tree for the <code>/home/user/documents</code> directory and output it in JSON format, you would run the following command:</p>
+<pre tabindex="0"><code>./dir_tree -d /home/user/documents -f json
+</code></pre><p>This would create a file named <code>dir_tree.json</code> in the current directory containing the directory tree for the <code>/home/user/documents</code> directory in JSON format.</p>
+<h3 id="example-4-print-a-directory-tree-for-the-current-directory-to-the-console">Example 4: Print a directory tree for the current directory to the console</h3>
+<p>To print a directory tree for the current directory to the console, you would run the following command:</p>
+<pre tabindex="0"><code>./dir_tree -p
+</code></pre><p>This would print the current directory tree to the console.</p>
+<h3 id="example-5-print-a-directory-tree-for-a-specified-directory-to-the-console">Example 5: Print a directory tree for a specified directory to the console</h3>
+<p>To print a directory tree for the <code>/home/user/documents</code> directory to the console, you would run the following command:</p>
+<pre tabindex="0"><code>./dir_tree -d /home/user/documents -p
+</code></pre><p>This would print the <code>/home/user/documents</code> directory tree to the console.</p>
+</section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1 no-underline hover:bg-black/[6%] dark:bg-white/[8%] dark:hover:bg-white/[12%]"
+      href="http://localhost:1313/tags/go"
+      >go</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="mx-auto flex h-[4.5rem] max-w-[--w] items-center px-8 text-xs uppercase tracking-wider opacity-60"
+>
+  <div class="mr-auto">
+  
+    &copy; 2024
+    <a class="link" href="http://localhost:1313/">hectorsvill blog</a>
+  
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >powered by hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >hugo-paper</a
+  >
+</footer>
+
+  </body>
+</html>

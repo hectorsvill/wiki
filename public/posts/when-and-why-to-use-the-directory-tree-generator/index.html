@@ -1,0 +1,448 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #fbfbfb"
+  lang="en-us"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>When and Why to Use the Directory-Tree-Generator - hectorsvill blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="Imagine you&rsquo;re working on a large software project that&rsquo;s been in development for months. The codebase has grown significantly, with numerous directories and hundreds of files spread across the project. You&rsquo;re tasked with documenting the project&rsquo;s structure to help onboard new developers. Manually mapping out the entire directory tree would be time-consuming and error-prone. Enter the Directory-Tree-Generator, a simple yet powerful tool that can save you hours of work.
+What is the Directory-Tree-Generator?" />
+  <meta name="author" content="@hectorsvill" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="http://localhost:1313/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/theme.svg" />
+
+  
+  
+  
+  
+  <link rel="preload" as="image" href="https://2.gravatar.com/avatar/f7bc3aba3d8b4fd604224510e9df9195eabddd1258028c781a9c0454b3d517b5?size=512" />
+  
+  
+
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/github.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/linkedin.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/rss.svg" />
+  
+  
+
+  
+  
+  <script
+    defer
+    src="http://localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+  
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  
+  
+  
+
+  
+  <link
+    rel="icon"
+    href="http://localhost:1313/favicon.ico"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="http://localhost:1313/apple-touch-icon.png"
+  />
+
+  
+  <meta name="generator" content="Hugo 0.133.0">
+
+  
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-[--w] px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a class="-translate-y-[1px] text-2xl font-medium" href="http://localhost:1313/"
+      >hectorsvill blog</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#fbfbfb'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-10">
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/docs/"
+        >Docs</a
+      >
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/projects/"
+        >Projects</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-14 lg:mt-0 lg:items-center"
+    >
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/hectorsvill"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/hector-steven-villasano"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="http://localhost:1313/index.xml"
+        target="_blank"
+        rel="alternate"
+      >
+        rss
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-[--w] px-8 pb-16 pt-14 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-14">
+    <h1 class="!my-0 pb-2.5">When and Why to Use the Directory-Tree-Generator</h1>
+
+    
+    <div class="text-xs antialiased opacity-60">
+      
+      <time>Aug 18, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>Imagine you&rsquo;re working on a large software project that&rsquo;s been in development for months. The codebase has grown significantly, with numerous directories and hundreds of files spread across the project. You&rsquo;re tasked with documenting the project&rsquo;s structure to help onboard new developers. Manually mapping out the entire directory tree would be time-consuming and error-prone. Enter the <strong>Directory-Tree-Generator</strong>, a simple yet powerful tool that can save you hours of work.</p>
+<h2 id="what-is-the-directory-tree-generator">What is the Directory-Tree-Generator?</h2>
+<p>The Directory-Tree-Generator is a Go program that quickly generates a directory tree of your project, either in text or JSON format. With just a few commands, you can visualize the structure of any directory, making it easier to document, review, or share with your team.</p>
+<h2 id="scenarios-where-the-directory-tree-generator-shines">Scenarios Where the Directory-Tree-Generator Shines</h2>
+<ol>
+<li>
+<p><strong>Onboarding New Team Members</strong>: When bringing new developers onto a project, a visual representation of the codebase&rsquo;s structure can make a big difference. Instead of explaining the project structure verbally or through outdated diagrams, you can use this tool to generate an up-to-date directory tree and share it with the team.</p>
+</li>
+<li>
+<p><strong>Project Documentation</strong>: Whether you&rsquo;re writing technical documentation or a project report, including a directory tree is a great way to give an overview of the project&rsquo;s layout. With the Directory-Tree-Generator, you can create a detailed directory tree in seconds, ready to be included in your documentation.</p>
+</li>
+<li>
+<p><strong>Code Reviews</strong>: During code reviews, it’s crucial to understand how new files and directories fit into the existing structure. By generating a directory tree before and after changes, reviewers can quickly compare the structures and spot any inconsistencies or unnecessary complexity.</p>
+</li>
+<li>
+<p><strong>Archiving and Backup</strong>: Before archiving or backing up a project, it&rsquo;s useful to have a clear record of its directory structure. This tool allows you to create a snapshot of the directory tree, ensuring that you know exactly what was included in the archive.</p>
+</li>
+</ol>
+<h2 id="how-to-use-the-directory-tree-generator">How to Use the Directory-Tree-Generator</h2>
+<p>Using the Directory-Tree-Generator is straightforward, with several options to customize the output. Here’s a quick guide to get you started:</p>
+<h3 id="generating-a-simple-directory-tree">Generating a Simple Directory Tree</h3>
+<p>To create a directory tree of the current directory in text format, simply run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./dir_tree
+</span></span></code></pre></div><p>This generates a <code>dir_tree.txt</code> file containing the structure. Here’s an example of what the output might look like:</p>
+<pre tabindex="0"><code>.
+├── main.go
+├── README.md
+└── src
+    ├── utils.go
+    └── handlers
+        ├── auth.go
+        └── data.go
+</code></pre><h3 id="customizing-the-output-format">Customizing the Output Format</h3>
+<p>If you need the directory tree in JSON format, use the <code>-f</code> option:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./dir_tree -f json
+</span></span></code></pre></div><p>This command creates a <code>dir_tree.json</code> file, which can be easily parsed or integrated into other systems.</p>
+<h3 id="specifying-a-starting-directory">Specifying a Starting Directory</h3>
+<p>You can also generate a directory tree for a specific path. For example, to generate a tree for the <code>/home/user/documents</code> directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./dir_tree -d /home/user/documents
+</span></span></code></pre></div><h3 id="printing-to-the-console">Printing to the Console</h3>
+<p>If you prefer to see the directory tree directly in the console instead of writing it to a file, use the <code>-p</code> option:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./dir_tree -p
+</span></span></code></pre></div><p>This command will display the tree in the terminal, which is useful for quick inspections or demonstrations.</p>
+<h2 id="download-links">Download Links</h2>
+<p>Ready to try out the Directory-Tree-Generator? You can download the program for your operating system using the links below:</p>
+<ul>
+<li><strong>Mac</strong>: <a href="https://github.com/hectorsvill/Directory-Tree-Generator/releases/tag/WinDTGv0.1.1">Download for Mac</a></li>
+<li><strong>Linux</strong>: <a href="https://github.com/hectorsvill/Directory-Tree-Generator/releases/tag/WinDTGv0.1.1">Download for Linux</a></li>
+<li><strong>Windows</strong>: <a href="https://github.com/hectorsvill/Directory-Tree-Generator/releases/tag/WinDTGv0.1.1">Download for Windows</a></li>
+</ul>
+<p>These links will get you started quickly, no matter which platform you&rsquo;re using.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The Directory-Tree-Generator is a versatile tool that can streamline various tasks, from onboarding new developers to documenting and reviewing code. By providing a quick and accurate visualization of your project&rsquo;s structure, it helps you maintain organization and clarity, regardless of the project&rsquo;s size. Whether you&rsquo;re managing a small script or a large-scale application, this tool is an essential addition to your development toolkit.</p>
+</section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1 no-underline hover:bg-black/[6%] dark:bg-white/[8%] dark:hover:bg-white/[12%]"
+      href="http://localhost:1313/tags/go"
+      >go</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  
+  <nav
+    class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg !leading-[1.2] *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"
+  >
+    
+    <a class="pr-3" href="http://localhost:1313/posts/building-a-directory-tree-generator-in-go/"
+      ><span class="mr-1.5">←</span><span>Building a Directory Tree Generator in Go</span></a
+    >
+    
+    
+    <a class="ml-auto justify-end pl-3" href="http://localhost:1313/posts/troubleshooting-ch340-usb-to-serial-converter-issues-on-ubuntu/"
+      ><span>Troubleshooting CH340 USB-to-Serial Converter Issues on Ubuntu</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="mx-auto flex h-[4.5rem] max-w-[--w] items-center px-8 text-xs uppercase tracking-wider opacity-60"
+>
+  <div class="mr-auto">
+  
+    &copy; 2024
+    <a class="link" href="http://localhost:1313/">hectorsvill blog</a>
+  
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >powered by hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >hugo-paper</a
+  >
+</footer>
+
+  </body>
+</html>
