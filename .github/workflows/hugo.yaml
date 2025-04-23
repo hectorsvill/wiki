@@ -32,24 +32,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.123.0
+      HUGO_VERSION: 0.123.0 # Pinning the Hugo version is recommended for consistency
     steps:
       - name: Install Hugo CLI
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb          
-      - name: Install Dart Sass
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Install Dart Sass (Optional, if needed by your theme/site)
         run: sudo snap install dart-sass
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # Use latest major version
         with:
-          submodules: recursive
-          fetch-depth: 0
+          submodules: recursive # Fetch Hugo Modules
+          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v4
-      - name: Install Node.js dependencies
-        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+        uses: actions/configure-pages@v4 # Use latest major version
+
+      - name: Install Node.js dependencies (Optional, if needed e.g., for PostCSS)
+        # Check if package-lock.json or npm-shrinkwrap.json exists, then run npm ci
+        run: |
+          if [[ -f package-lock.json || -f npm-shrinkwrap.json ]]; then
+            npm ci
+          else
+            echo "No lock file found, skipping npm ci"
+          fi
+
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
@@ -59,10 +68,12 @@ jobs:
           hugo \
             --gc \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"          
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3 # UPDATE: Use v3 (latest major version)
         with:
+          # Upload entire directory
           path: ./public
 
   # Deployment job
@@ -75,4 +86,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # UPDATE: Use v4 (latest major version)
